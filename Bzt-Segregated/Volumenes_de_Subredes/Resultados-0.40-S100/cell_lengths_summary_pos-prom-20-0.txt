@@ -1,0 +1,20 @@
+Cell edge lengths (Å) computed from 8 Ba/Ca corners per Ti/Zr B-site center
+Triclinic PBC with minimum-image; edges from quadrant-paired Ba/Ca atoms.
+
+Cells computed: 21952
+Cells skipped (missing center or Ba/Ca corner data): 0
+Cells excluded (> 6.000 Å in any edge): 0
+Cells kept (used in averages): 21952
+
+== Overall (KEPT) ==
+a_x mean ± std: 4.085302 ± 0.067042  (n=21952)
+a_y mean ± std: 4.088463 ± 0.064235
+a_z mean ± std: 4.084476 ± 0.069016
+
+== Split by B-species (KEPT) ==
+[Ti] a_x mean ± std: 4.051410 ± 0.058728  (n=13050)
+[Ti] a_y mean ± std: 4.057834 ± 0.058606
+[Ti] a_z mean ± std: 4.049354 ± 0.060076
+[Zr] a_x mean ± std: 4.134987 ± 0.043302  (n=8902)
+[Zr] a_y mean ± std: 4.133363 ± 0.041815
+[Zr] a_z mean ± std: 4.135964 ± 0.044673
