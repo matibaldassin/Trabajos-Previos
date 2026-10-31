@@ -7,13 +7,16 @@ import os
 
 # Etiquetas
 CONC = "0.40"
-AGREGACION = ["S0", "S50"]   # se procesa cada agregación de la lista
+AGREGACION = ["S0", "S50", "S100"]   # se procesa cada agregación de la lista
 
 # Valores de campo eléctrico [kV/mm] a usar en el ajuste (campo aplicado en la dirección [111])
 FIELDS_KV_MM = [0.0, 3.0, 5.0, 7.0, 10.0]
 
 # Factor de escala de temperatura (solo para graficar)
 T_SCALE = 1.48
+
+# Ventana del promedio móvil para suavizar eps_r vs T (1 = sin suavizado)
+SMOOTH_N = 1
 
 # Carpetas (relativas a la carpeta de este script)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -77,6 +80,17 @@ def fit_eps_vs_E(data_pairs):
     ss_tot = np.sum((P - P.mean()) ** 2)
     r2 = 1.0 - ss_res / ss_tot if ss_tot > 0 else float("nan")
     return eps_r, slope, intercept, r2
+
+
+def smooth(y, n):
+    """Promedio móvil centrado de n puntos; en los bordes promedia los puntos disponibles."""
+    y = np.asarray(y, dtype=float)
+    if n <= 1 or len(y) < 2:
+        return y
+    kernel = np.ones(n)
+    suma = np.convolve(y, kernel, mode="same")
+    cuenta = np.convolve(np.ones_like(y), kernel, mode="same")
+    return suma / cuenta
 
 
 def process(agregacion):
@@ -143,7 +157,9 @@ def process(agregacion):
     epsr_111 = [e for _, e, _, _ in fit_details_111]
 
     plt.figure(figsize=(10, 6))
-    plt.plot(Ts_111, epsr_111, marker='o', linewidth=1.8, label="Campos seleccionados")
+    plt.plot(Ts_111, epsr_111, marker='o', linestyle='none', alpha=0.4, label="Campos seleccionados")
+    plt.plot(Ts_111, smooth(epsr_111, SMOOTH_N), linewidth=2.2,
+             label=f"Campos seleccionados (suavizado n={SMOOTH_N})")
 
     # Comparación con la tabla de referencia permittivity-e111-table
     if os.path.exists(ref_111):
