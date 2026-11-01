@@ -16,7 +16,7 @@ FIELDS_KV_MM = [0.0, 3.0, 5.0, 7.0, 10.0]
 T_SCALE = 1.48
 
 # Ventana del promedio móvil para suavizar eps_r vs T (1 = sin suavizado)
-SMOOTH_N = 1
+SMOOTH_N = 3
 
 # Carpetas (relativas a la carpeta de este script)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
