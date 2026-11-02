@@ -10,7 +10,7 @@ CONC = "0.40"
 AGREGACION = ["S0", "S50", "S100"]   # se procesa cada agregación de la lista
 
 # Valores de campo eléctrico [kV/mm] a usar en el ajuste (campo aplicado en la dirección [111])
-FIELDS_KV_MM = [0.0, 3.0, 7.0]
+FIELDS_KV_MM = [0.0, 3.0, 5.0, 7.0, 10.0]
 
 # Factor de escala de temperatura (solo para graficar)
 T_SCALE = 1.48
